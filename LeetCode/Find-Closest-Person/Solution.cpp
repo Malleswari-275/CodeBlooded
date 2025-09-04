@@ -1,0 +1,2 @@
+int a = abs(x - z), b = abs(y - z);
+return (a < b) | ((a > b) << 1);
