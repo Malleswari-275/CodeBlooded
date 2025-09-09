@@ -1,11 +1,19 @@
-x1 = n, x2 = 0, mult = 1
-while n > 1:             // Why not n > 0? See Explanations below
-    steal = 1
-    if (n - steal) % 10 == 0: // if n % 10 == 1:
-        steal += 1       // Observe: steal amount at each digit is either 1 or 2
-    x1 -= steal * m
-    x2 += steal * m
-    n = (n - steal) / 10 // Move digits one to the right
-    m *= 10              // Advance the multiplier
-
-return [x1, x2]
+class Solution {
+public:
+    bool zero(int num){
+        while(num){
+            int r = num%10;
+            if(r == 0) return true;
+            num /= 10;
+        }
+        return false;
+    }
+    vector<int> getNoZeroIntegers(int n) {
+        for(int i = 1; i < n; i++){
+            int a = i;
+            int b = n-i;
+            if(!zero(a) && !zero(b) && (a+b == n)) return {a,b};
+        }
+        return {};
+    }
+};
