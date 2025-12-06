@@ -1,0 +1,27 @@
+1class Solution {
+2public:
+3    bool isPrime(int n) {
+4        if (n < 2) return false;
+5        for (int i = 2; i * i <= n; i++) {
+6            if (n % i == 0) return false;
+7        }
+8        return true;
+9    }
+10
+11    bool completePrime(int num) {
+12        if (num < 10) return isPrime(num);
+13        string s = to_string(num);
+14        int n = s.size();
+15
+16        for(int i = 1; i <= n; i++) {
+17            int prefix = stoi(s.substr(0, i));
+18            if (!isPrime(prefix)) return false;
+19        }
+20        for (int i = 0; i < n; i++) {
+21            int suffix = stoi(s.substr(i));
+22            if (!isPrime(suffix)) return false;
+23        }
+24        return true;
+25    }
+26};
+27
