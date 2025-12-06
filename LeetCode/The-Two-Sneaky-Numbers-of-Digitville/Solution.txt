@@ -1,0 +1,16 @@
+1class Solution {
+2public:
+3    vector<int> getSneakyNumbers(vector<int>& nums) {
+4        int n=nums.size();
+5        vector<int> fre(n,0);
+6        for(int i=0;i<n;i++){
+7            fre[nums[i]]++;
+8
+9        }
+10        vector<int> ans;
+11        for(int i=0;i<n;i++){
+12            if(fre[i]==2) ans.push_back(i);
+13        }
+14        return ans;
+15    }
+16};
