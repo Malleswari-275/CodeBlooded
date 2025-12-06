@@ -1,58 +1,36 @@
 1class Solution {
 2public:
-3    string bin(int n) {
-4        string str = "";
-5        while(n > 0) {
-6            str += ((n % 2) + '0');
-7            n/=2;
-8        }
-9        reverse(str.begin(),str.end());
-10        return str;
-11    }
-12    bool isPalin(string str) {
-13        int i = 0;
-14        int j = str.size()-1;
-15        while(i <= j) {
-16            if(str[i] != str[j]) return false;
-17            i++;
-18            j--;
-19        }
-20        return true;
-21    }
-22    int fun(int n) {
-23        
-24        string str = bin(n);
-25        int temp = n;
-26
-27        int c1 = 0;
-28        while(!isPalin(str)) {
-29            n--;
-30            c1++;
-31            str = bin(n);
-32        }
-33    
-34        n = temp;
-35        str = bin(n);
-36        int c2 = 0;
-37
-38        while(!isPalin(str)) {
-39            n++;
-40            c2++;
-41            str = bin(n);
-42        }
-43
-44        return min(c1,c2);
-45        
-46    }
-47    vector<int> minOperations(vector<int>& nums) {
-48        vector<int>ans;
-49
-50        for(int i = 0 ; i < nums.size() ; i++) {
-51            int cnt = fun(nums[i]);
-52            // cout << cnt << endl;
-53            ans.push_back(cnt);
-54        }
-55
-56        return ans;
-57    }
-58};
+3    bool Palindrome(string s){
+4        for(int i = 0; i < s.size()/2; i++){
+5            if(s[i] != s[s.size()-1-i]) return false;
+6        }
+7        return true;
+8    }
+9    vector<int> minOperations(vector<int>& nums) {
+10        vector<int>vc(nums.size(),5000);
+11        for(int i = 0; i < nums.size(); i++){
+12            for(int j = nums[i]; j <= 5000; j++){
+13                string s = bitset<64>(j).to_string();
+14                auto one = s.find('1');
+15                if(one == string::npos) s = "0";
+16                else s = s.substr(one);
+17                if(Palindrome(s)){
+18                    vc[i] = min(vc[i],j-nums[i]);
+19                    break;
+20                }
+21            }
+22
+23            for(int j = nums[i]; j >= 0; j--){
+24                string s = bitset<64>(j).to_string();
+25                auto one = s.find('1');
+26                if(one == string::npos) s = "0";
+27                else s = s.substr(one);
+28                if(Palindrome(s)){
+29                    vc[i] = min(vc[i], nums[i]-j);
+30                    break;
+31                }
+32            }
+33        }
+34        return vc;
+35    }
+36};
