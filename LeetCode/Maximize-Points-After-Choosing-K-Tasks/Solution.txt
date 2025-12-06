@@ -1,0 +1,21 @@
+1class Solution {
+2public:
+3    static bool cmp(pair<int,int>&a, pair<int,int>&b){
+4        int firsts = (a.first-a.second);
+5        int seconds = (b.first-b.second);
+6        return firsts > seconds;
+7    }
+8    long long maxPoints(vector<int>& technique1, vector<int>& technique2, int k) {
+9        vector<pair<int,int>>vc;
+10        for(int i = 0; i < technique1.size(); i++){
+11            vc.push_back({technique1[i],technique2[i]});
+12        }
+13        sort(vc.begin(),vc.end(),cmp);
+14        long long ans = 0;
+15        for(int i = 0; i < k; i++){
+16            ans += vc[i].first;
+17        }
+18        for(int i = k; i < vc.size(); i++) ans += max(vc[i].first, vc[i].second);
+19        return ans;
+20    }
+21};
