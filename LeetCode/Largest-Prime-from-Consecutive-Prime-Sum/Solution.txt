@@ -1,47 +1,39 @@
 1class Solution {
 2public:
-3
-4    vector<int>sieve(int n) {
-5        
-6        vector<int>prime(n+1,1);
-7
-8        prime[0] = prime[1] = 0;
-9
-10        for(int i = 2 ; i <= sqrt(n) ; i++) {
-11            if(prime[i]) {
-12                for(int j = i*i ; j <= n ; j += i) {
-13                    prime[j] = 0;
-14                }
-15            }
-16        }
-17
-18        return prime;
-19        
-20    }
-21    int largestPrime(int n) {
-22        
-23        vector<int>res = sieve(n);
-24
-25        vector<int>primes;
-26
-27        for(int i = 0 ; i < res.size() ; i++) {
-28            if(res[i]) primes.push_back(i);
-29        }
-30
-31        // for(auto it : primes) cout << it << " ";
-32
-33        int maxi = 0;
-34
-35        long long sum = 0;
-36        
-37        for(auto it : primes) {
-38         //   cout << it << " " << sum << endl;
-39            sum += it;
-40            if(sum > n) break;
-41            if(res[sum]) maxi = sum;
-42        }
-43        
-44        return maxi;
-45        
-46    }
-47};
+3    // bool Prime(long long num){
+4    //     for(long long i = 2; i*i <= num; i++) if(num%i == 0) return false;
+5    //     return true;
+6    // }
+7   
+8    int largestPrime(int n) {
+9        vector<long long>vc;
+10        vector<bool>primes(n+1,true);
+11        primes[0] = false;
+12        primes[1] = false;
+13        for(int i = 2; i*i <= n; i++){
+14            if(primes[i]){
+15                for(int j = i*i; j <= n; j+=i) primes[j] = false;
+16            }
+17        }
+18        
+19        for(int i = 2; i <= n; i++){
+20            if(primes[i]) vc.push_back(i);
+21        }
+22        for(int i = 1; i < vc.size(); i++) vc[i] += vc[i-1];
+23
+24        for(int i = vc.size()-1; i >= 0; i--){
+25            if(vc[i] <= n){
+26                if(primes[vc[i]]) return vc[i];
+27            }
+28        }
+29        // for(int i = n; i >= 2; i--){
+30        //     int num = i;
+31        //     if(Prime(num)){
+32        //         auto low = lower_bound(vc.begin(),vc.end(),num);
+33        //         if(low != vc.end()) if(*low == num) return num;
+34        //     }
+35        // }
+36        return 0;
+37    }
+38    
+39};
