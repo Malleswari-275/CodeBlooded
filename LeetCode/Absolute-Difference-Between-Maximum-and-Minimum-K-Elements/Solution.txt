@@ -2,17 +2,19 @@
 2public:
 3    int absDifference(vector<int>& nums, int k) {
 4        sort(nums.begin(),nums.end());
-5        int mini = 0, maxi = 0;
-6        for(int i = 0; i < k; i++) mini += nums[i];
-7        int cnt = 1;
-8        for(int i = nums.size()-1; i >= 0; i--){
-9            if(cnt > k) break;
-10            else{
-11                cnt++;
-12                maxi += nums[i];
-13            }
-14        }
-15        cout<<mini<<" "<<maxi;
-16        return maxi-mini;
-17    }
-18};
+5
+6        int s1 = 0;
+7        int s2 = 0;
+8
+9        int i = 0;
+10        int temp = k;
+11        while(k--) s1 += nums[i++];
+12
+13        int j = nums.size()-1;
+14        while(temp--) s2 += nums[j--];
+15
+16        return abs(s2-s1);
+17
+18        
+19    }
+20};
