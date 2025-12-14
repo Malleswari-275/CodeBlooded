@@ -1,43 +1,48 @@
 1class Solution {
 2public:
 3    long long minMoves(vector<int>& balance) {
-4        long long ans = 0;
-5        long long total = 0;
-6        long long neg = 1;
-7        int neg_idx = -1;
-8        for(int i = 0; i < balance.size(); i++){
-9            if(balance[i] >= 0) total += balance[i];
-10            else{
-11                neg = balance[i];
-12                neg_idx = i;
-13            }
+4
+5        long long cnt = 0;
+6
+7        long long sum = accumulate(balance.begin(),balance.end(),0LL);
+8        if(sum < 0) return -1;
+9
+10        int negInd = 0;
+11        
+12        for(int i = 0 ; i < balance.size() ; i++) {
+13            if(balance[i] < 0) negInd = i;
 14        }
-15        // if(bala
-16        int n = balance.size();
-17        if(neg_idx == -1) return 0;
-18        if(total+neg < 0) return -1;
-19        int i = (neg_idx-1+n)%n, j = (neg_idx+1)%n;
-20        long long required = -neg;
-21        int index_diff = 1;
-22        while(required > 0 && index_diff < n){
-23            if(balance[i] > 0){
-24                long long mini = min((long long)balance[i],required);
-25                balance[i] -= mini;
-26                ans += mini*index_diff;
-27                required -= mini;
-28            }
-29            if(required > 0 && balance[j] > 0 && i != j){
-30                long long mini = min((long long)balance[j],required);
-31                balance[j] -= mini;
-32                ans += mini*index_diff;
-33                required -= mini;
-34            }
-35            i = (i-1+n)%n;
-36            j = (j+1)%n;
-37            index_diff++;
-38        }
-39        cout<<ans;
-40        if(required == 0) return ans;
-41        return -1;
-42    }
-43};
+15
+16        int l = negInd-1;
+17        int r = negInd+1;
+18
+19        int n = balance.size();
+20
+21        int ldist = 1;
+22        int rdist = 1;
+23
+24        while(balance[negInd] < 0) {
+25            
+26            if(l < 0) l = n-1;
+27            if(r >= n) r = 0;
+28
+29            int mini = min(-1*balance[negInd],balance[l]);
+30            balance[negInd] += mini;
+31            cnt += 1LL*(ldist++)*mini;
+32            balance[l] -= mini;
+33            l--;
+34
+35            
+36            if(balance[negInd] >= 0) break;
+37
+38            mini = min(-1*balance[negInd],balance[r]);
+39            balance[negInd] += mini;
+40            cnt += 1LL*(rdist++)*mini;
+41            balance[r] -= mini;
+42            r++;
+43            
+44        }
+45
+46        return cnt;
+47    }
+48};
