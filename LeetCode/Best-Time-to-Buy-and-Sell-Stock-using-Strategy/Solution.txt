@@ -1,0 +1,28 @@
+1class Solution {
+2public:
+3    long long maxProfit(vector<int>& prices, vector<int>& strategy, int k) {
+4        long long total = 0;
+5        for(int i = 0; i < prices.size(); i++){
+6            total += prices[i]*strategy[i];
+7        }
+8        long long maxi = total;
+9        long long sum = total;
+10
+11        for(int i = 0; i < k; i++){
+12            sum -= prices[i]*strategy[i];
+13            if(i >= k/2) sum += prices[i];
+14        }
+15        maxi = max(sum,maxi);
+16        int l = 0, r = k, mid = k/2;
+17        while(r < prices.size()){
+18            sum += prices[l]*strategy[l];
+19            sum -= prices[r]*strategy[r];
+20            sum += prices[r];
+21            sum -= prices[mid++];
+22            l++;
+23            r++;
+24            maxi = max(maxi,sum);
+25        }
+26        return maxi;
+27    }
+28};
