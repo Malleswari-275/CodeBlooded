@@ -1,0 +1,15 @@
+1class Solution {
+2public:
+3    long long minCost(string s, vector<int>& cost) {
+4        map<char,long long>mp;
+5        long long OverallCost = 0;
+6
+7        for(int i = 0; i < cost.size(); i++){
+8            mp[s[i]] += cost[i];
+9            OverallCost += cost[i];
+10        }
+11        long long maximumCost = 0;
+12        for(auto it : mp) maximumCost = max(maximumCost,it.second);
+13        return OverallCost-maximumCost;
+14    }
+15};
