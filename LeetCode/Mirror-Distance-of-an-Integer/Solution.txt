@@ -1,0 +1,13 @@
+1class Solution {
+2public:
+3    int mirrorDistance(int n) {
+4        int reverse = 0;
+5        int temp = n;
+6        while(temp){
+7            int r = temp%10;
+8            reverse = reverse*10 + r;
+9            temp /= 10;
+10        }
+11        return abs(n-reverse);
+12    }
+13};
