@@ -13,6 +13,7 @@
 13            }
 14            
 15        }
-16        return cnt+1;
-17    }
-18};
+16        if(freq[s[s.size()-1] - 'a'] <= 1) cnt++;
+17        return cnt;
+18    }
+19};
