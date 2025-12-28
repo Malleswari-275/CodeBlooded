@@ -1,21 +1,13 @@
 1class Solution {
 2public:
 3    int minAllOneMultiple(int k) {
-4
-5        if(k % 2 == 0 || k % 5 == 0) return -1;
-6
-7        int cnt = 0;
-8
-9        long long num = 1;
-10
-11        while(true) {
-12            cnt++;
-13            if(num % k == 0) {
-14                return cnt;
-15            }
-16            num = ((1LL*num*10)+1) % k;
-17        }
-18
-19        return -1;
-20    }
-21};
+4        // IMPOSSIBLE CASE
+5        if(k%2 == 0 || k%5 == 0) return -1;
+6        int rem =0;
+7        for(int i = 1; i <= 100000; i++){
+8            rem = (rem*10 + 1)%k;
+9            if(rem == 0) return i;
+10        }
+11        return -1;
+12    }
+13};
