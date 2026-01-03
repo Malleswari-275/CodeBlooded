@@ -1,24 +1,18 @@
-"""
-A generic template for dynamic sliding window finding max window length
-"""
-def longest_window(nums, condition):
-    i = 0
-    max_length = 0
-    result = None
-
-    for j in range(len(nums)):
-        # Expand the window
-        # Add nums[j] to the current window logic
-
-        # Shrink the window if the condition is violated
-        while not condition():  
-            # Shrink the window from the left
-            # Remove nums[i] from the current window logic
-            i += 1
-
-        # Update the result if the current window is larger
-        if j - i + 1 > max_length:
-            max_length = j - i + 1
-            # Add business logic to update result
-
-    return result
+1class Solution {
+2public:
+3    int characterReplacement(string s, int k) {
+4        unordered_map<char,int>mp;
+5        int ans = 0, i = 0, maxi = 0;
+6        for(int j = 0; j < s.size(); j++){
+7            mp[s[j]]++;
+8            maxi = max(maxi,mp[s[j]]);
+9            while((j-i+1)-maxi > k){
+10                mp[s[i]]--;
+11                i++;
+12            }
+13
+14            ans = max(ans,j-i+1);
+15        }
+16        return ans;
+17    }
+18};
