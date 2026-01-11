@@ -1,0 +1,20 @@
+1class Solution {
+2public:
+3    long long countPairs(vector<string>& words) {
+4        unordered_map<string,long long>mp;
+5        long long ans = 0;
+6        for(int i = 0; i < words.size(); i++){
+7            string word = words[i];
+8            string newString = "";
+9            int ascii = word[0] - 'a';
+10            for(int j = 0; j < word.size(); j++){
+11                
+12                newString += ((word[j] - 'a' - ascii + 26)%26) + 'a';
+13                
+14            }
+15            ans += mp[newString];
+16            mp[newString]++;
+17        }
+18        return ans;
+19    }
+20};
