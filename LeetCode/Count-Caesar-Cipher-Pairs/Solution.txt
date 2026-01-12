@@ -1,20 +1,38 @@
 1class Solution {
 2public:
-3    long long countPairs(vector<string>& words) {
-4        unordered_map<string,long long>mp;
-5        long long ans = 0;
-6        for(int i = 0; i < words.size(); i++){
-7            string word = words[i];
-8            string newString = "";
-9            int ascii = word[0] - 'a';
-10            for(int j = 0; j < word.size(); j++){
-11                
-12                newString += ((word[j] - 'a' - ascii + 26)%26) + 'a';
-13                
-14            }
-15            ans += mp[newString];
-16            mp[newString]++;
-17        }
-18        return ans;
-19    }
-20};
+3
+4    string convert(string& s) {
+5
+6        int cnt = ('z'-s[0])+1;
+7       // cout << cnt << endl;
+8
+9        string ans = "";
+10
+11        for(int i = 0 ; i < s.size() ; i++) {
+12            char ch = ((s[i]+cnt) % 26) + 'a';
+13            ans += ch;
+14        }
+15
+16      //  cout << ans << endl;
+17        return ans;
+18    }
+19    long long countPairs(vector<string>& words) {
+20
+21        long long cnt = 0;
+22
+23        unordered_map<string,long long>m;
+24
+25        for(int i = 0 ; i < words.size() ; i++) {
+26
+27            string s = convert(words[i]);
+28            m[s]++;
+29
+30        }
+31
+32        for(auto it : m) {
+33            cnt += (it.second)*(it.second-1)/2;
+34        }
+35
+36        return cnt;
+37    }
+38};
