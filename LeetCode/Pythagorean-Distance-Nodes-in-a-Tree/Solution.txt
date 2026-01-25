@@ -1,0 +1,42 @@
+1class Solution {
+2public:
+3    vector<int> bfs(int n, vector<vector<int>>& nodes, int src){
+4        vector<int>vc(n,-1);
+5        queue<int>q;
+6        vc[src] = 0;
+7        q.push(src);
+8
+9        while(!q.empty()){
+10            int u = q.front();
+11            q.pop();
+12            for(int v : nodes[u]){
+13                if(vc[v] == -1){
+14                    vc[v] = vc[u] + 1;
+15                    q.push(v);
+16                }
+17            }
+18        }
+19        return vc;
+20    }
+21    int specialNodes(int n, vector<vector<int>>& edges, int x, int y, int z) {
+22        vector<vector<int>>nodes(n);
+23        for(auto &edge : edges){
+24            int u = edge[0], v = edge[1];
+25            nodes[u].push_back(v);
+26            nodes[v].push_back(u);
+27        }
+28        vector<int>dx = bfs(n,nodes,x);
+29        vector<int>dy = bfs(n,nodes,y);
+30        vector<int>dz = bfs(n,nodes,z);
+31
+32        int ans = 0;
+33        for(int i = 0; i < n; i++){
+34            long long a = dx[i], b = dy[i], c = dz[i];
+35            long long mini = min({a,b,c});
+36            long long maxi = max({a,b,c});
+37            long long sec = a+b+c - mini - maxi;
+38            if((mini*mini)+(sec*sec) == (maxi*maxi)) ans++;
+39        }
+40        return ans;
+41    }
+42};
