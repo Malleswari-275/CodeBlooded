@@ -1,0 +1,25 @@
+1class Solution {
+2public:
+3    vector<int> rotateElements(vector<int>& nums, int k) {
+4        deque<int>dq;
+5        for(int i = 0; i < nums.size(); i++){
+6            if(nums[i] >= 0) dq.push_back(nums[i]);
+7        }
+8        int m = dq.size();
+9        if(m == 0) return nums;
+10        k = k%m;
+11        while(k--){
+12            int front = dq.front();
+13            dq.pop_front();
+14            dq.push_back(front);
+15        }
+16        for(int i = 0; i < nums.size(); i++){
+17            if(nums[i] >= 0){
+18                int front = dq.front();
+19                nums[i] = front;
+20                dq.pop_front();
+21            }
+22        }
+23        return nums;
+24    }
+25};
