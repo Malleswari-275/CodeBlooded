@@ -1,44 +1,32 @@
-class Solution {
-public:
-
-    string decodeString(string s) {
-        stack<char> st;
-        for(int i = 0; i < s.size(); i++){
-            if(s[i] != ']') {
-                st.push(s[i]);
-            }
-            else{
-                string curr_str = "";
-                
-                while(st.top() != '['){
-                    curr_str = st.top() + curr_str ;
-                    st.pop();
-                }
-                
-                st.pop();   // for '['
-                string number = "";
-                
-                // for calculating number
-                
-                while(!st.empty() && isdigit(st.top())){
-                    number = st.top() + number;
-                    st.pop();
-                }
-                int k_time = stoi(number);    // convert string to number
-                
-                while(k_time--){
-                    for(int p = 0; p < curr_str.size() ; p++)
-                        st.push(curr_str[p]);
-                }
-            }
-        }
-        
-        s = "";
-        while(!st.empty()){
-            s = st.top() + s;
-            st.pop();
-        }
-        return s;
-        
-    }
-};
+1class Solution {
+2public:
+3    string decodeString(string s) {
+4        stack<char>st;
+5        for(int i = 0; i < s.size(); i++){
+6            if(s[i] != ']') st.push(s[i]);
+7            else{
+8                string curr = "";
+9                while(st.top() != '['){
+10                    curr = st.top() + curr;
+11                    st.pop();
+12                }
+13                st.pop();
+14                string number = "";
+15                while(!st.empty() && isdigit(st.top())){
+16                    number = st.top() + number;
+17                    st.pop();
+18                }
+19                int repeat = stoi(number);
+20                while(repeat--){
+21                    for(int j = 0; j < curr.size(); j++) st.push(curr[j]);
+22                }
+23            }
+24        }
+25        s = "";
+26        while(!st.empty()){
+27            s = st.top() + s;
+28            st.pop();
+29        }
+30        return s;
+31    }
+32};
