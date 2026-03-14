@@ -1,0 +1,14 @@
+1class Solution {
+2public:
+3    int firstUniqueEven(vector<int>& nums) {
+4
+5        for(int i = 0; i < nums.size(); i++){
+6            if(nums[i]%2 == 0){
+7                int cnt = 0;
+8                for(int j = 0; j < nums.size(); j++) if(nums[j] == nums[i]) cnt++;
+9                if(cnt == 1) return nums[i];
+10            }
+11        }
+12        return -1;
+13    }
+14};
