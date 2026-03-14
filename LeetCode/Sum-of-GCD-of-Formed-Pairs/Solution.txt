@@ -1,0 +1,23 @@
+1class Solution {
+2public:
+3    long long gcdSum(vector<int>& nums) {
+4        int n = nums.size();
+5        vector<long long>prefixGcd(n);
+6
+7        long long maxi = 0;
+8        for(int i = 0; i < n; i++) {
+9            maxi = max(maxi,(long long)nums[i]);
+10            prefixGcd[i] = __gcd((long long)nums[i], maxi);
+11        }
+12        sort(prefixGcd.begin(), prefixGcd.end());
+13        long long ans = 0;
+14        int l = 0, r = n - 1;
+15        while(l < r) {
+16            ans += __gcd(prefixGcd[l], prefixGcd[r]);
+17            l++;
+18            r--;
+19        }
+20
+21        return ans;
+22    }
+23};
