@@ -1,0 +1,12 @@
+1class Solution {
+2public:
+3    long long countCommas(long long n) {
+4        long long ans = 0;
+5        long long base = 1000;
+6        while(base <= n){
+7            ans +=( n-base) + 1;
+8            base *= 1000;
+9        }
+10        return ans;
+11    }
+12};
