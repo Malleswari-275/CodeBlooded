@@ -1,0 +1,16 @@
+1class Solution {
+2public:
+3    int passwordStrength(string password) {
+4        unordered_map<char,int>mp;
+5        for(int i = 0; i < password.size(); i++) mp[password[i]]++;
+6        int ans = 0;
+7        for(auto it : mp){
+8            char ch = it.first;
+9            if(ch >= 'a' && ch <= 'z') ans++;
+10            else if(ch >= 'A' && ch <= 'Z') ans += 2;
+11            else if(ch >= '0' && ch <= '9') ans += 3;
+12            else if(ch == '!' || ch == '@' || ch == '#' || ch == '$') ans += 5;
+13        }
+14        return ans;
+15    }
+16};
