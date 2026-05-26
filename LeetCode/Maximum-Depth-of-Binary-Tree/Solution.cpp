@@ -22,10 +22,12 @@
 22        inorder(root->left,curr);
 23        inorder(root->right,curr);
 24        curr -= 1;
-25    }
-26    int maxDepth(TreeNode* root) {
-27        int c = 0;
-28        inorder(root,c);
-29        return maxi;
-30    }
-31};
+25        return;
+26        
+27    }
+28    int maxDepth(TreeNode* root) {
+29        int c = 0;
+30        inorder(root,c);
+31        return maxi;
+32    }
+33};
