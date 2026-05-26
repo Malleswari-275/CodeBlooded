@@ -11,26 +11,18 @@
 11 */
 12class Solution {
 13public:
-14    int BFS(TreeNode* root){
-15        if(!root) return 0;
-16
-17        queue<TreeNode*>q;
-18        q.push(root);
-19        int level = 0;
-20
-21        while(!q.empty()){
-22            int len = q.size();
-23            for(int i = 0; i < len; i++){
-24                TreeNode* node = q.front();
-25                q.pop();
-26                if(node->left) q.push(node->left);
-27                if(node->right) q.push(node->right);
-28            }
-29            level++;
-30        }
-31        return level;
-32    }
-33    int maxDepth(TreeNode* root) {
-34        return BFS(root);
-35    }
-36};
+14    int maxi = INT_MIN;
+15    void inorder(TreeNode* root, int curr){
+16        if(!root){
+17            maxi = max(maxi,curr);
+18            return;
+19        }
+20        curr += 1;
+21        inorder(root->left,curr);
+22        inorder(root->right,curr);
+23    }
+24    int maxDepth(TreeNode* root) {
+25        inorder(root,0);
+26        return maxi;
+27    }
+28};
