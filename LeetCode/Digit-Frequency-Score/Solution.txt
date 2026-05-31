@@ -1,0 +1,16 @@
+1class Solution {
+2public:
+3    int digitFrequencyScore(int n) {
+4        int ans = 0;
+5        unordered_map<int,int>mp;
+6        while(n){
+7            int r = n%10;
+8            mp[r]+=1;
+9            n /= 10;
+10        }
+11        for(auto it : mp){
+12            ans += (it.first * it.second);
+13        }
+14        return ans;
+15    }
+16};
