@@ -1,0 +1,28 @@
+1class Solution {
+2public:
+3    int maxi = 0;
+4    void beautiful(vector<int>&nums, int k, map<int,int>&mp, int i){
+5        if(i >= nums.size()){
+6            return;
+7        }
+8        // pick
+9
+10        if(mp.find(nums[i]-k) == mp.end()){
+11            mp[nums[i]]++;
+12            maxi++;
+13            beautiful(nums,k,mp,i+1);
+14            mp[nums[i]]--;
+15            if(mp[nums[i]] == 0) mp.erase(nums[i]);
+16        }
+17
+18        //non pick
+19        beautiful(nums,k,mp,i+1); 
+20
+21    }
+22    int beautifulSubsets(vector<int>& nums, int k) {
+23        sort(nums.begin(),nums.end());
+24        map<int,int>mp;
+25        beautiful(nums,k,mp,0);
+26        return maxi;
+27    }
+28};
