@@ -1,2 +1,1 @@
- LeftSum = 0;
- RightSum = total of nums[]
+abs(sum(nums[:i]) - sum(nums[i + 1:]))
