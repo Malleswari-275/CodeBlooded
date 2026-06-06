@@ -1,0 +1,11 @@
+1class Solution {
+2public:
+3    bool consecutiveSetBits(int n) {
+4        string s = bitset<32>(n).to_string();
+5        int cnt = 0;
+6        for(int i = 1; i < s.size(); i++){
+7            if(s[i] == '1' && s[i] == s[i-1]) cnt++;
+8        }
+9        return cnt == 1;
+10    }
+11};
