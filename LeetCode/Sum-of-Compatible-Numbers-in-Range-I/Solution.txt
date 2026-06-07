@@ -1,0 +1,10 @@
+1class Solution {
+2public:
+3    int sumOfGoodIntegers(int n, int k) {
+4        int sum = 0;
+5        for(int i = 1; i <= n+k; i++){
+6            if(abs(n-i) <= k && ((n&i) == 0)) sum += i;
+7        }
+8        return sum;
+9    }
+10};
