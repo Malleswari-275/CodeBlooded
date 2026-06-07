@@ -1,0 +1,44 @@
+1class Solution {
+2public:
+3    vector<string>vc;
+4    void binary(int n, string& st, int idx){
+5        if(idx >= n){
+6            vc.push_back(st);
+7            return;
+8        }
+9        // pick
+10        st += '1';
+11        binary(n,st,idx+1);
+12        st.pop_back();
+13
+14        // non pick
+15        st += '0';
+16        binary(n,st,idx+1);
+17        st.pop_back();
+18    }
+19    vector<string> generateValidStrings(int n, int k) {
+20        string st = "";
+21        binary(n,st,0);
+22        // for(int i = 0; i < vc.size(); i++) cout<<vc[i]<<" ";
+23        
+24        vector<string>ans;
+25        for(int i = 0; i < vc.size(); i++){
+26            string s = vc[i];
+27            bool iscons = false;
+28            int cnt = 0;
+29            for(int j = 1; j < s.size(); j++){
+30                if(s[j] == '1' && s[j-1] == s[j]){
+31                    iscons = true;
+32                    break;
+33                }
+34                else{
+35                    if(s[j] == '1') cnt+=j;
+36                }
+37            }
+38            if(!iscons && cnt <= k){
+39                ans.push_back(s);
+40            }
+41        }
+42        return ans;
+43    }
+44};
