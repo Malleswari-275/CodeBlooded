@@ -1,0 +1,65 @@
+1/**
+2 * Definition for a binary tree node.
+3 * struct TreeNode {
+4 *     int val;
+5 *     TreeNode *left;
+6 *     TreeNode *right;
+7 *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+8 *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+9 *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+10 * };
+11 */
+12
+13class Solution {
+14public:
+15
+16    void dfs(TreeNode* root, map<int, vector<pair<int,int>>>& mp){
+17        if(mp.find(root->val) == mp.end()) return;
+18
+19        for(auto pp : mp[root->val]){
+20            int child = pp.first;
+21            int isLeft = pp.second;
+22
+23            TreeNode* node = new TreeNode(child);
+24
+25            if(isLeft){
+26                root->left = node;
+27            }
+28            else{
+29                root->right = node;
+30            }
+31
+32            dfs(node, mp);
+33        }
+34    }
+35
+36    TreeNode* createBinaryTree(vector<vector<int>>& descriptions) {
+37
+38        map<int, vector<pair<int,int>>> mp;
+39        set<int> childNodes;
+40
+41        for(auto d : descriptions){
+42            int parent = d[0];
+43            int child = d[1];
+44            int isLeft = d[2];
+45
+46            mp[parent].push_back({child, isLeft});
+47            childNodes.insert(child);
+48        }
+49
+50        int rootVal = -1;
+51
+52        for(auto d : descriptions){
+53            if(childNodes.find(d[0]) == childNodes.end()){
+54                rootVal = d[0];
+55                break;
+56            }
+57        }
+58
+59        TreeNode* root = new TreeNode(rootVal);
+60
+61        dfs(root, mp);
+62
+63        return root;
+64    }
+65};
