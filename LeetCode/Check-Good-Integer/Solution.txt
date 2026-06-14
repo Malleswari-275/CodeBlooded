@@ -1,0 +1,16 @@
+1class Solution {
+2public:
+3    bool checkGoodInteger(int n) {
+4        long long sum = 0;
+5        long long sqsum = 0;
+6        int temp = n;
+7        while(temp){
+8            int r = temp%10;
+9            sum += r;
+10            sqsum += (r*r);
+11            temp /= 10;
+12        }
+13        if(sqsum-sum >= 50) return true;
+14        return false;
+15    }
+16};
