@@ -1,0 +1,28 @@
+1class Solution {
+2public:
+3    int getLength(vector<int>& nums) {
+4        int n = nums.size();
+5        int ans = 1;
+6
+7        for(int i = 0; i < n; i++){
+8            map<int,int>freq,cnt;
+9            int dis = 0, maxi = 0;
+10            for(int j = i; j < n; j++){
+11                if(freq[nums[j]] > 0) cnt[freq[nums[j]]]--;
+12                freq[nums[j]]++;
+13                if(freq[nums[j]] == 1) dis++;
+14                cnt[freq[nums[j]]]++;
+15                maxi =max(maxi,freq[nums[j]]);
+16
+17                bool flag = false;
+18                if(dis == 1) flag = true;
+19                else if(maxi%2 == 0){
+20                    if(cnt[maxi]+cnt[maxi/2] == dis && cnt[maxi] >= 1 && cnt[maxi/2] >= 1) flag = true;
+21                }
+22                if(flag) ans = max(ans,j-i+1);
+23            }
+24            
+25        }
+26        return ans;
+27    }
+28};
