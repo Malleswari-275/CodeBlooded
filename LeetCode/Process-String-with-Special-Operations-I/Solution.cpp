@@ -5,14 +5,13 @@
 5        for(int i= 0; i < s.size(); i++){
 6            if(s[i] >= 'a' && s[i] <= 'z') res += s[i];
 7            else if(s[i] == '*'){
-8                if(res.size() > 0)res.pop_back();
+8                if(!res.empty())res.pop_back();
 9            }
 10            else if(s[i] == '#'){
-11                string st = res;
-12                res += st;
-13            }
-14            else if(s[i] == '%') reverse(res.begin(),res.end());
-15        }
-16        return res;
-17    }
-18};
+11                res += res;
+12            }
+13            else if(s[i] == '%') reverse(res.begin(),res.end());
+14        }
+15        return res;
+16    }
+17};
